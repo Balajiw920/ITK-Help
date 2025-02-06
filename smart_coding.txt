@@ -1,0 +1,254 @@
+package com.mycom.smartcoding.handlers;
+
+
+
+
+
+import org.eclipse.core.commands.AbstractHandler;
+import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Combo;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Text;
+
+import com.teamcenter.rac.aif.AbstractAIFUIApplication;
+import com.teamcenter.rac.aifrcp.AIFUtility;
+import com.teamcenter.rac.kernel.TCComponentItem;
+import com.teamcenter.rac.kernel.TCComponentItemType;
+import com.teamcenter.rac.kernel.TCException;
+import com.teamcenter.rac.kernel.TCSession;
+
+
+
+
+/**
+ * Our sample handler extends AbstractHandler, an IHandler base class.
+ * @see org.eclipse.core.commands.IHandler
+ * @see org.eclipse.core.commands.AbstractHandler
+ */
+public class SampleHandler extends AbstractHandler {
+	/**
+	 * The constructor.
+	 */
+	Text t,t1,t2,t3,t4,t5;
+	Combo cb,cb2,cb3,cb4;
+	String str1=null;
+	String str2=null;
+	String str3=null;
+	String str4=null;
+	String str=null;
+	String str11=null;
+	
+	public SampleHandler() {
+	}
+//	private static boolean b1c=false;
+	private int counter;
+	private int counter2;
+	/**
+	 * the command has been executed, so extract extract the needed information
+	 * from the application context.
+	 */
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+//		IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
+		
+		Shell s1=new Shell();
+		s1.setBounds(200, 200, 500, 600);
+		s1.setText("Item Creation Window");
+		s1.setVisible(true);
+		
+		Label l=new Label(s1, SWT.NONE);
+		l.setText("ID");
+		l.setBounds(10, 10, 100, 40);
+		t=new Text(s1,SWT.BORDER);
+		t.setBounds(200,10 , 100, 20);
+
+		Label l1=new Label(s1, SWT.NONE);
+		l1.setText("Machine type");
+		l1.setBounds(10, 50, 100, 40);
+		t1=new Text(s1,SWT.BORDER);
+		
+		cb=new Combo(s1, 0);
+//		cb.add("01");
+//		cb.add("02");
+//		cb.add("03");
+		final String[] ITEMS={"0","1","2","3"};
+		cb.setItems(ITEMS);
+		
+		cb.setBounds(200,50,100,100);
+		
+		Label l2=new Label(s1, SWT.NONE);
+		l2.setText("Sub machine type");
+		l2.setBounds(10, 90, 100, 40);
+		t2=new Text(s1,SWT.BORDER);
+
+		cb2=new Combo(s1, 0);
+		cb2.add("11");
+		cb2.add("12");
+		cb2.add("13");
+		cb2.setBounds(200, 90, 100, 100);
+		
+		Label l4=new Label(s1, SWT.NONE);
+		l4.setText("Major Assembly");
+		l4.setBounds(10, 130, 100, 40);
+		t4=new Text(s1,SWT.BORDER);
+
+		cb3=new Combo(s1, 0);
+		cb3.add("21");
+		cb3.add("22");
+		cb3.add("23");
+		cb3.setBounds(200, 130, 100, 100);
+		
+		Label l5=new Label(s1, SWT.NONE);
+		l5.setText("Minor Assembly");
+		l5.setBounds(10, 170, 100, 40);
+		t5=new Text(s1,SWT.BORDER);
+
+		cb4=new Combo(s1, 0);
+		cb4.add("31");
+		cb4.add("32");
+		cb4.add("33");
+		cb4.setBounds(200, 170, 100, 100);
+		
+		Label l3=new Label(s1, SWT.NONE);
+		l3.setText("Part No:");
+		l3.setBounds(10, 210, 100, 40);
+		t3=new Text(s1,SWT.BORDER);
+		t3.setBounds(200,210, 100, 20);
+		
+		final Button b1=new Button(s1, SWT.PUSH);
+		b1.setText("Assign");
+		b1.setBounds(10,300,100,20);
+		
+		cb.addSelectionListener(new SelectionListener() {
+			
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				// TODO Auto-generated method stub
+				str1=(cb.getItem(cb.getSelectionIndex()));
+				
+				//t.setEditable(false);
+				
+			}
+			
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		cb2.addSelectionListener(new SelectionListener() {
+			
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				// TODO Auto-generated method stub
+				//String str2=null;
+				str2=(cb2.getItem(cb2.getSelectionIndex()));
+				//str1=str1 + str2;
+				//System.out.println("str2:--"+str1);
+			}
+			
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		cb3.addSelectionListener(new SelectionListener() {
+			
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				// TODO Auto-generated method stub
+				//String str3=null;
+				str3=(cb3.getItem(cb3.getSelectionIndex()));
+				//str=str1+str2+str3;
+				//System.out.println("str3:--"+str);
+				
+				//t.setText(str);
+			}
+			
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+	
+		cb4.addSelectionListener(new SelectionListener() {
+	
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				// TODO Auto-generated method stub
+				//String str4=null;
+				str4=(cb4.getItem(cb4.getSelectionIndex()));
+			
+			}
+	
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) {
+				// TODO Auto-generated method stub
+		
+			}
+		});	
+		
+		b1.addSelectionListener(new SelectionListener() {
+				
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				// TODO Auto-generated method stub
+				AbstractAIFUIApplication app=AIFUtility.getCurrentApplication();
+				final TCSession session=(TCSession) app.getSession();
+				
+				
+				try {
+					
+					
+					                                                                                                                                                                       
+						t3.setEnabled(false);
+						//t.setEnabled(false);
+						
+						
+
+
+					counter=Integer.parseInt(t3.getText());
+					t3.setText(Integer.toString(++counter));
+					counter2=Integer.parseInt(t3.getText());
+					//t.setText(Integer.toString(counter2));
+					str11=(Integer.toString(counter2));
+					str=str1+str2+" "+str3+str4+" "+str11;
+					//str1.concat(str4);
+					t.setText(str);
+					
+					
+					TCComponentItemType type=(TCComponentItemType) session.getTypeComponent("Item");
+					TCComponentItem item=type.create(t.getText(), null, "Item", "item1", "", null);
+					
+					
+				} catch (TCException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+			
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+		
+	
+		
+		return null;
+	}
+
+}
